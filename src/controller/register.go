@@ -3,7 +3,7 @@ package controller
 import (
 	"net/http"
 	"encoding/json"
-	"Go300/src/model"
+	"Go300-backend/src/model"
 )
 
 func Register(w http.ResponseWriter, r *http.Request) {

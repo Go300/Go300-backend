@@ -6,7 +6,7 @@ import (
 	"github.com/gorilla/mux"
 	"net/http"
 	"net/http/httptest"
-	"Go300/src/model"
+	"Go300-backend/src/model"
 	"bytes"
 	"encoding/json"
 )
