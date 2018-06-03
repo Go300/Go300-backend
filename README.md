@@ -1,6 +1,6 @@
 It's Go300-backend. Requirements:
 1) Docker CE (I use: Docker version 18.03.1-ce on Ubuntu 18.04)
-2) docker-compose - we recommend to use python script (install via pip), not to install by apt-get (system manager)
+2) docker-compose - we recommend to use python script (install via pip), not to install by apt-get (system package manager)
 
 If you want to see what we did, follow this commands:
 git clone https://github.com/Go300/Go300-backend.git (or git@github.com:Go300/Go300-backend.git, but you need SSH key)
