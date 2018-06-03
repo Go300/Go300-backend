@@ -1,0 +1,29 @@
+version: '3'
+
+services:
+  mongodb:
+    image: mongo:latest
+    container_name: "mongodb"
+    environment:
+      - MONGO_DATA_DIR=/data/db
+      - MONGO_LOG_DIR=/dev/null
+      - MONGO_INITDB_ROOT_USERNAME=Go300
+      - MONGO_INITDB_ROOT_PASSWORD=default
+      - MONGO_INITDB_DATABASE=Go300DB
+    volumes:
+      - ./data/db:/data/db
+    ports:
+      - 27017:27017
+    command: mongod --smallfiles --logpath=/dev/null
+
+  app:
+    container_name: "app"
+    image: golang:1.10.2
+    volumes:
+      - .:/go/src/Go300
+    working_dir: /go/src/Go300/src
+    command: bash -c "go get ./... && go run app.go"
+    ports:
+      - 8000:8000
+    depends_on:
+      - mongodb
