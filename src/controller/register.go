@@ -1,16 +1,16 @@
 package controller
 
 import (
-	"net/http"
-	"encoding/json"
 	"Go300-backend/src/model"
+	"encoding/json"
+	"net/http"
 )
 
 func Register(w http.ResponseWriter, r *http.Request) {
-	if (r.Method == "POST") {
+	if r.Method == "POST" {
 		var member model.Member
 		json.NewDecoder(r.Body).Decode(&member)
-		new_member, _ := model.Create(member)
-		json.NewEncoder(w).Encode(new_member)
+		newMember, _ := model.Create(member)
+		json.NewEncoder(w).Encode(newMember)
 	}
 }

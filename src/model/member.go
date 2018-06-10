@@ -1,10 +1,10 @@
 package model
 
 import (
-	"github.com/mongodb/mongo-go-driver/mongo"
 	"context"
-	"github.com/mongodb/mongo-go-driver/bson/objectid"
 	"errors"
+	"github.com/mongodb/mongo-go-driver/bson/objectid"
+	"github.com/mongodb/mongo-go-driver/mongo"
 )
 
 type Member struct {
@@ -13,8 +13,8 @@ type Member struct {
 }
 
 func Create(member Member) (Member, error) {
-	if (len(member.Name) == 0) {
-		return member, errors.New("Username is empty.")
+	if 0 == len(member.Name) {
+		return member, errors.New("username is empty")
 	}
 	client, _ := mongo.NewClient("mongodb://Go300:default@mongodb:27017")
 	client.Connect(context.TODO())
