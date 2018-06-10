@@ -3,15 +3,18 @@ package model
 import (
 	"context"
 	"errors"
+
 	"github.com/mongodb/mongo-go-driver/bson/objectid"
 	"github.com/mongodb/mongo-go-driver/mongo"
 )
 
+//Member model
 type Member struct {
 	Token string `json:"Token"`
 	Name  string `json:"Name"`
 }
 
+//Create member
 func Create(member Member) (Member, error) {
 	if 0 == len(member.Name) {
 		return member, errors.New("username is empty")

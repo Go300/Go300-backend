@@ -6,6 +6,7 @@ import (
 	"net/http"
 )
 
+//Register member
 func Register(w http.ResponseWriter, r *http.Request) {
 	if r.Method == "POST" {
 		var member model.Member
