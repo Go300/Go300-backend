@@ -1,9 +1,7 @@
-FROM iron/go:dev
+FROM golang:1.10.2
 
-WORKDIR /src
-ENV SRC_DIR=/go/src/github.com/Go300/Go300-backend/
-ADD ./src $SRC_DIR
-RUN cd $SRC_DIR; go build -o myapp; cp myapp /src/
+COPY ./src $GOPATH/go/src/Go300-backend/src
+WORKDIR $GOPATH/go/src/Go300-backend/src
 
 RUN go get github.com/smartystreets/goconvey/convey
 RUN go get github.com/gorilla/mux

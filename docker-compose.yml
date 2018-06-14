@@ -3,7 +3,7 @@ version: '3'
 services:
   app:
       container_name: "app"
-      command: bash -c "./myapp"
+      command: bash -c "go run app.go"
       build: ./
       volumes:
         - ./src:/go/src/Go300-backend/src
