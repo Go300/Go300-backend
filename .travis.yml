@@ -17,5 +17,4 @@ before_install:
   - docker-compose up -d
 
 script:
-  - docker-compose exec app bash
-  - go test ./...
+  - docker-compose exec app bash -c "go test ./... -cover"
