@@ -1,4 +1,4 @@
-language: go
+language: generic
 
 env:
   - DOCKER_COMPOSE_VERSION=1.21.2
