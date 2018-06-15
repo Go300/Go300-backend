@@ -1,4 +1,4 @@
-language: go
+language: generic
 
 env:
   - DOCKER_COMPOSE_VERSION=1.21.2
@@ -17,4 +17,4 @@ before_install:
   - docker-compose up -d
 
 script:
-  - go test ./...
+  - docker-compose exec app bash -c "go test ./... -cover"
