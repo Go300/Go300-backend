@@ -3,9 +3,10 @@ package main
 import (
 	"Go300-backend/src/controller"
 	"fmt"
-	"github.com/gorilla/mux"
 	"log"
 	"net/http"
+
+	"github.com/gorilla/mux"
 )
 
 func main() {
