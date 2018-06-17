@@ -2,16 +2,16 @@ version: '3'
 
 services:
   app:
-      container_name: "app"
-      command: bash -c "go run app.go"
-      build: ./
-      volumes:
-        - ./src:/go/src/Go300-backend/src
-      working_dir: /go/src/Go300-backend/src
-      ports:
-        - 8000:8000
-      depends_on:
-        - mongodb
+    container_name: "app"
+    command: bash -c "go run app.go"
+    build: ./
+    volumes:
+      - ./src:/go/src/Go300-backend/src
+    working_dir: /go/src/Go300-backend/src
+    ports:
+      - 8000:8000
+    depends_on:
+      - mongodb
   mongodb:
     image: mongo:latest
     container_name: "mongodb"
@@ -21,8 +21,20 @@ services:
       - MONGO_INITDB_ROOT_USERNAME=Go300
       - MONGO_INITDB_ROOT_PASSWORD=default
       - MONGO_INITDB_DATABASE=Go300DB
-    volumes:
-      - ./data/db:/data/db
+#    volumes:
+#      - ./data/db:/data/db
     ports:
       - 27017:27017
     command: mongod --smallfiles --logpath=/dev/null
+
+  mongoui:
+    image: mongo-express:latest
+    container_name: "mongoui"
+    environment:
+      ME_CONFIG_MONGODB_ADMINUSERNAME: Go300
+      ME_CONFIG_MONGODB_ADMINPASSWORD: default
+      ME_CONFIG_MONGODB_SERVER: mongodb
+    ports:
+      - 8081:8081
+    depends_on:
+      - mongodb
