@@ -22,6 +22,6 @@ stages:
 jobs:
   include:
     - stage: build
-    script: docker-compose up -d
+      script: docker-compose up -d
     - stage: test
-    script: docker-compose up -d && docker-compose exec app bash -c "go test ./... -cover"
+      script: docker-compose up -d && docker-compose exec app bash -c "go test ./... -cover"
