@@ -1,9 +1,5 @@
 language: generic
 
-stages:
-  - build
-  - test
-
 env:
   - DOCKER_COMPOSE_VERSION=1.21.2
 
@@ -19,9 +15,13 @@ before_install:
   - sudo mv docker-compose /usr/local/bin
   - docker-compose version
 
+stages:
+  - build
+  - test
+
 jobs:
   include:
     - stage: build
     script: docker-compose up -d
     - stage: test
-    script: docker-compose exec app bash -c "go test ./... -cover"
+    script: docker-compose up -d && docker-compose exec app bash -c "go test ./... -cover"
