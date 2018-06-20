@@ -12,6 +12,7 @@ services:
       - 8000:8000
     depends_on:
       - mongodb
+
   mongodb:
     image: mongo:latest
     container_name: "mongodb"
@@ -21,8 +22,8 @@ services:
       - MONGO_INITDB_ROOT_USERNAME=Go300
       - MONGO_INITDB_ROOT_PASSWORD=default
       - MONGO_INITDB_DATABASE=Go300DB
-#    volumes:
-#      - ./data/db:/data/db
+    volumes:
+      - ./data/db:/data/db
     ports:
       - 27017:27017
     command: mongod --smallfiles --logpath=/dev/null
