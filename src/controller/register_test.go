@@ -4,16 +4,18 @@ import (
 	"Go300-backend/src/model"
 	"bytes"
 	"encoding/json"
-	"github.com/gorilla/mux"
-	. "github.com/smartystreets/goconvey/convey"
 	"net/http"
 	"net/http/httptest"
 	"testing"
+
+	"github.com/gorilla/mux"
+	. "github.com/smartystreets/goconvey/convey"
 )
 
 func Router() *mux.Router {
 	router := mux.NewRouter()
 	router.HandleFunc("/register", Register).Methods("POST")
+	router.HandleFunc("/subscribe", Subscribe).Methods("POST")
 	return router
 }
 

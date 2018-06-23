@@ -14,8 +14,8 @@ type Member struct {
 	Name  string `json:"Name"`
 }
 
-//Create member
-func Create(member Member) (Member, error) {
+//CreateMember member
+func CreateMember(member Member) (Member, error) {
 	if 0 == len(member.Name) {
 		return member, errors.New("username is empty")
 	}
