@@ -23,8 +23,8 @@ type Direction struct {
 }
 
 type Location struct {
-	X float64 `json:"X"`
-	Y float64 `json:"Y"`
+	Lat  float64 `json:"Lat"`
+	Long float64 `json:"Long"`
 }
 
 func CreateSubscription(subscription Subscription) (Subscription, error) {
