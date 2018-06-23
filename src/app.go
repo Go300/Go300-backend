@@ -7,6 +7,7 @@ import (
 	"net/http"
 
 	"github.com/gorilla/mux"
+	"github.com/robfig/cron"
 )
 
 func startapp() {
@@ -17,6 +18,13 @@ func startapp() {
 	log.Fatal(http.ListenAndServe(":8000", nil))
 }
 
+func startcron() {
+	c := cron.New()
+	c.AddFunc("@every 5s", func() { fmt.Println("lol") })
+	c.Start()
+}
+
 func main() {
+	go startcron()
 	startapp()
 }
