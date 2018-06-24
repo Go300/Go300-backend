@@ -7,3 +7,4 @@ RUN go get github.com/smartystreets/goconvey/convey
 RUN go get github.com/gorilla/mux
 RUN go get github.com/mongodb/mongo-go-driver/mongo
 RUN go get github.com/robfig/cron
+RUN go get github.com/joho/godotenv
