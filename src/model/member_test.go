@@ -1,18 +1,19 @@
 package model
 
 import (
-	. "github.com/smartystreets/goconvey/convey"
 	"testing"
+
+	. "github.com/smartystreets/goconvey/convey"
 )
 
 func TestTrivial(t *testing.T) {
 	Convey("Username", t, func() {
 		member := Member{
-			Name:  "test name 1",
-			Token: "",
+			Username: "MuslimBeibytuly",
 		}
 		newMember, err := Create(member)
-		So(len(newMember.Token), ShouldEqual, 24)
+		So(len(newMember.Username), ShouldEqual, 15)
+		So(len(newMember.Id), ShouldEqual, 24)
 		So(err, ShouldEqual, nil)
 	})
 }
@@ -20,8 +21,7 @@ func TestTrivial(t *testing.T) {
 func TestEmptyUsername(t *testing.T) {
 	Convey("Username", t, func() {
 		member := Member{
-			Name:  "",
-			Token: "",
+			Username: "",
 		}
 		_, err := Create(member)
 		So(err, ShouldNotEqual, nil)
