@@ -1,18 +1,19 @@
 package controller
 
 import (
-	"Go300-backend/src/model"
 	"bytes"
 	"encoding/json"
 	"net/http"
 	"net/http/httptest"
 	"testing"
 
+	"Go300-backend/src/model"
+
 	. "github.com/smartystreets/goconvey/convey"
 )
 
 func TestSubscribe(t *testing.T) {
-	Convey("subscribe", t, func() {
+	Convey("Subscribe", t, func() {
 		location := model.Location{1, 2}
 		direction := model.Direction{location, location}
 		preference := model.Preference{"12:30", direction}
@@ -20,7 +21,6 @@ func TestSubscribe(t *testing.T) {
 		preferences = append(preferences, preference)
 		preferences = append(preferences, preference)
 		subscription := model.Subscription{
-			Token:       "",
 			Preferences: preferences,
 		}
 		jsonSubscription, _ := json.Marshal(subscription)

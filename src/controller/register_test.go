@@ -19,13 +19,12 @@ func Router() *mux.Router {
 	return router
 }
 
-func TestSpec(t *testing.T) {
+func TestRegister(t *testing.T) {
 
 	// Only pass t into top-level Convey calls
-	Convey("Given some integer with a starting value", t, func() {
+	Convey("Register", t, func() {
 		member := &model.Member{
-			Name:  "test name 1",
-			Token: "",
+			Username: "MuslimBeibytuly",
 		}
 		jsonMember, _ := json.Marshal(member)
 		request, _ := http.NewRequest("POST", "/register", bytes.NewBuffer(jsonMember))

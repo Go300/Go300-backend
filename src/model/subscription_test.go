@@ -6,20 +6,69 @@ import (
 	. "github.com/smartystreets/goconvey/convey"
 )
 
-func TestSubscription(t *testing.T) {
+func TestCreateSubscription(t *testing.T) {
+
 	Convey("Subscription", t, func() {
-		location := Location{1, 2}
-		direction := Direction{location, location}
-		preference := Preference{"12:30", direction}
-		preferences := make([]Preference, 2)
-		preferences = append(preferences, preference)
-		preferences = append(preferences, preference)
+		var preferences []Preference
+		preferences = append(
+			preferences,
+			Preference{
+				"9:30",
+				Direction{
+					Location{1, 2},
+					Location{3, 4},
+				},
+			},
+		)
+		preferences = append(
+			preferences,
+			Preference{
+				"18:00",
+				Direction{
+					Location{3, 4},
+					Location{1, 2},
+				},
+			},
+		)
 		subscription := Subscription{
-			Token:       "",
+			Member:      Member{Username: "MuslimBeibytuly"},
 			Preferences: preferences,
 		}
 		newSubscription, err := CreateSubscription(subscription)
-		So(len(newSubscription.Token), ShouldEqual, 24)
+		So(len(newSubscription.Id), ShouldEqual, 12)
 		So(err, ShouldEqual, nil)
+	})
+}
+
+func TestCreateSubscription2(t *testing.T) {
+
+	Convey("Empty Subscription Member Username", t, func() {
+		var preferences []Preference
+		preferences = append(
+			preferences,
+			Preference{
+				"9:30",
+				Direction{
+					Location{1, 2},
+					Location{3, 4},
+				},
+			},
+		)
+		preferences = append(
+			preferences,
+			Preference{
+				"18:00",
+				Direction{
+					Location{3, 4},
+					Location{1, 2},
+				},
+			},
+		)
+		subscription := Subscription{
+			Member:      Member{Username: ""},
+			Preferences: preferences,
+		}
+		_, err := CreateSubscription(subscription)
+		So(err, ShouldNotEqual, nil)
 	})
 }

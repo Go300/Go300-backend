@@ -1,30 +1,40 @@
 package model
 
 import (
-	"context"
 	"errors"
+	"fmt"
+	"log"
 
-	"github.com/mongodb/mongo-go-driver/bson/objectid"
-	"github.com/mongodb/mongo-go-driver/mongo"
+	"github.com/go-bongo/bongo"
 )
 
 //Member model
 type Member struct {
-	Token string `json:"Token"`
-	Name  string `json:"Name"`
+	bongo.DocumentBase `bson:",inline"`
+	Username           string
 }
 
 //CreateMember member
 func CreateMember(member Member) (Member, error) {
-	if 0 == len(member.Name) {
-		return member, errors.New("username is empty")
+	if 0 == len(member.Username) {
+		return member, errors.New("Member Username is empty")
 	}
-	client, _ := mongo.NewClient("mongodb://Go300:default@mongodb:27017")
-	client.Connect(context.TODO())
-	collection := client.Database("Go300DB").Collection("members")
-	res, _ := collection.InsertOne(context.Background(), member)
-	if oid, ok := res.InsertedID.(objectid.ObjectID); ok {
-		member.Token = oid.Hex()
+	config := &bongo.Config{
+		ConnectionString: "Go300:default@mongodb",
+		Database:         "Go300DB",
+	}
+	connection, err := bongo.Connect(config)
+
+	if err != nil {
+		log.Fatal(err)
+	}
+	err = connection.Collection("members").Save(&member)
+	if err != nil {
+		if vErr, ok := err.(*bongo.ValidationError); ok {
+			fmt.Println("Validation errors are:", vErr.Errors)
+		} else {
+			fmt.Println("Got a real error:", err.Error())
+		}
 	}
 	return member, nil
 }

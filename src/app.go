@@ -6,7 +6,12 @@ import (
 	"log"
 	"net/http"
 
+	"os"
+
+	"Go300-backend/src/jobs"
+
 	"github.com/gorilla/mux"
+	"github.com/robfig/cron"
 )
 
 func startapp() {
@@ -18,6 +23,13 @@ func startapp() {
 	log.Fatal(http.ListenAndServe(":8000", nil))
 }
 
+func startcron() {
+	c := cron.New()
+	c.AddFunc(fmt.Sprintf("@every %s", os.Getenv("CONFIRMATION_CRON_TIMER")), func() { jobs.ConfirmationService() })
+	c.Start()
+}
+
 func main() {
+	go startcron()
 	startapp()
 }

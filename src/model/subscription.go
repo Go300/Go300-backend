@@ -1,39 +1,55 @@
 package model
 
 import (
-	"context"
+	"errors"
+	"fmt"
+	"log"
 
-	"github.com/mongodb/mongo-go-driver/bson/objectid"
-	"github.com/mongodb/mongo-go-driver/mongo"
+	"github.com/go-bongo/bongo"
 )
 
 type Subscription struct {
-	Token       string       `json:"Token"`
-	Preferences []Preference `json:"Preferences"`
+	bongo.DocumentBase `bson:",inline"`
+	Member             Member
+	Preferences        []Preference
 }
 
 type Preference struct {
-	Timestamp string    `json:"Timestamp"`
-	Where     Direction `json:"Where"`
+	Timestamp string
+	Where     Direction
 }
 
 type Direction struct {
-	From Location `json:"From"`
-	To   Location `json:"To"`
+	From Location
+	To   Location
 }
 
 type Location struct {
-	Lat  float64 `json:"Lat"`
-	Long float64 `json:"Long"`
+	Lat  float64
+	Long float64
 }
 
 func CreateSubscription(subscription Subscription) (Subscription, error) {
-	client, _ := mongo.NewClient("mongodb://Go300:default@mongodb:27017")
-	client.Connect(context.TODO())
-	collection := client.Database("Go300DB").Collection("subscriptions")
-	res, _ := collection.InsertOne(context.Background(), subscription)
-	if oid, ok := res.InsertedID.(objectid.ObjectID); ok {
-		subscription.Token = oid.Hex()
+	if 0 == len(subscription.Member.Username) {
+		return subscription, errors.New("Member Username is empty")
 	}
-	return subscription, nil
+	config := &bongo.Config{
+		ConnectionString: "Go300:default@mongodb",
+		Database:         "Go300DB",
+	}
+	connection, err := bongo.Connect(config)
+
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	err = connection.Collection("subscriptions").Save(&subscription)
+	if err != nil {
+		if vErr, ok := err.(*bongo.ValidationError); ok {
+			fmt.Println("Validation errors are:", vErr.Errors)
+		} else {
+			fmt.Println("Got a real error:", err.Error())
+		}
+	}
+	return subscription, err
 }
