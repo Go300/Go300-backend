@@ -14,13 +14,13 @@ type Member struct {
 	Username           string
 }
 
-//Create member
-func Create(member Member) (Member, error) {
+//CreateMember member
+func CreateMember(member Member) (Member, error) {
 	if 0 == len(member.Username) {
-		return member, errors.New("username is empty")
+		return member, errors.New("Member Username is empty")
 	}
 	config := &bongo.Config{
-		ConnectionString: "Go300:default@172.21.0.2",
+		ConnectionString: "Go300:default@mongodb",
 		Database:         "Go300DB",
 	}
 	connection, err := bongo.Connect(config)

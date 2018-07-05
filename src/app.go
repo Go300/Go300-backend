@@ -17,7 +17,8 @@ import (
 func startapp() {
 	r := mux.NewRouter()
 	r.HandleFunc("/register", controller.Register)
-	http.Handle("/register", r)
+	r.HandleFunc("/subscribe", controller.Subscribe)
+	http.Handle("/", r)
 	fmt.Println("Starting up on 8000")
 	log.Fatal(http.ListenAndServe(":8000", nil))
 }

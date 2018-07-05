@@ -6,24 +6,24 @@ import (
 	. "github.com/smartystreets/goconvey/convey"
 )
 
-func TestTrivial(t *testing.T) {
-	Convey("Username", t, func() {
+func TestCreateMember(t *testing.T) {
+	Convey("Member", t, func() {
 		member := Member{
 			Username: "MuslimBeibytuly",
 		}
-		newMember, err := Create(member)
+		newMember, err := CreateMember(member)
 		So(len(newMember.Username), ShouldEqual, 15)
-		So(len(newMember.Id), ShouldEqual, 24)
+		So(len(newMember.Id), ShouldEqual, 12)
 		So(err, ShouldEqual, nil)
 	})
 }
 
-func TestEmptyUsername(t *testing.T) {
-	Convey("Username", t, func() {
+func TestCreateMember2(t *testing.T) {
+	Convey("Empty Member Username", t, func() {
 		member := Member{
 			Username: "",
 		}
-		_, err := Create(member)
+		_, err := CreateMember(member)
 		So(err, ShouldNotEqual, nil)
 	})
 }
