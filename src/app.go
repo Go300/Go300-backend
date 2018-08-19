@@ -29,13 +29,13 @@ func startapp() {
 }
 
 func startcron() {
+	fmt.Println("Setting up cron jobs")
 	for hour := 0; hour < 24; hour++ {
-		str := strconv.Itoa(hour)
-		gocron.Every(1).Day().At(str + ":00").Do(jobs.ConfirmationService)
-		gocron.Every(1).Day().At(str + ":30").Do(jobs.ConfirmationService)
+		h := strconv.Itoa(hour)
+		gocron.Every(1).Day().At(h + ":00").Do(jobs.ConfirmationService)
+		gocron.Every(1).Day().At(h + ":30").Do(jobs.ConfirmationService)
 	}
 	<-gocron.Start()
-	fmt.Println("Setting up cron jobs")
 }
 
 func main() {
