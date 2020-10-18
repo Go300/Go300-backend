@@ -20,7 +20,6 @@ func Router() *mux.Router {
 }
 
 func TestRegister(t *testing.T) {
-
 	// Only pass t into top-level Convey calls
 	Convey("Register", t, func() {
 		member := &model.Member{

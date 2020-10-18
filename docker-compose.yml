@@ -6,7 +6,8 @@ services:
     command: bash -c "go run app.go"
     build: ./
     volumes:
-      - ./src:/go/src/Go300-backend/src
+      - ./src:/go/src/Go300-backend/src:rw
+      - ./.env:/go/src/Go300-backend/src/.env:rw
     working_dir: /go/src/Go300-backend/src
     ports:
       - 8000:8000

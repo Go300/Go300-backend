@@ -4,6 +4,7 @@ import (
 	"errors"
 	"fmt"
 	"log"
+	"os"
 
 	"github.com/go-bongo/bongo"
 )
@@ -20,8 +21,8 @@ func CreateMember(member Member) (Member, error) {
 		return member, errors.New("Member Username is empty")
 	}
 	config := &bongo.Config{
-		ConnectionString: "Go300:default@mongodb",
-		Database:         "Go300DB",
+		ConnectionString: fmt.Sprintf("%s:%s@%s", os.Getenv("DB_ROOT_USERNAME"), os.Getenv("DB_ROOT_PASSWORD"), os.Getenv("DB_URL")),
+		Database:         os.Getenv("DB_NAME"),
 	}
 	connection, err := bongo.Connect(config)
 

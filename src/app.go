@@ -6,13 +6,18 @@ import (
 	"log"
 	"net/http"
 
-	"os"
-
 	"Go300-backend/src/jobs"
 
+	"strconv"
+
 	"github.com/gorilla/mux"
-	"github.com/robfig/cron"
+	"github.com/jasonlvhit/gocron"
+	"github.com/subosito/gotenv"
 )
+
+func init() {
+	gotenv.Load()
+}
 
 func startapp() {
 	r := mux.NewRouter()
@@ -24,9 +29,13 @@ func startapp() {
 }
 
 func startcron() {
-	c := cron.New()
-	c.AddFunc(fmt.Sprintf("@every %s", os.Getenv("CONFIRMATION_CRON_TIMER")), func() { jobs.ConfirmationService() })
-	c.Start()
+	fmt.Println("Setting up cron jobs")
+	for hour := 0; hour < 24; hour++ {
+		h := strconv.Itoa(hour)
+		gocron.Every(1).Day().At(h + ":00").Do(jobs.ConfirmationService)
+		gocron.Every(1).Day().At(h + ":30").Do(jobs.ConfirmationService)
+	}
+	<-gocron.Start()
 }
 
 func main() {

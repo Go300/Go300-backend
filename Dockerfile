@@ -9,5 +9,5 @@ RUN go get github.com/smartystreets/goconvey/convey
 
 RUN go get github.com/gorilla/mux
 RUN go get github.com/go-bongo/bongo
-RUN go get github.com/robfig/cron
-RUN go get github.com/joho/godotenv
+RUN go get github.com/jasonlvhit/gocron
+RUN go get github.com/subosito/gotenv

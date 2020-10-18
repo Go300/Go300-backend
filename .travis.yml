@@ -17,11 +17,11 @@ before_install:
 
 stages:
   - build
-  - test
+#  - test
 
 jobs:
   include:
     - stage: build
       script: docker-compose up -d
-    - stage: test
-      script: docker-compose up -d && docker-compose exec app bash -c "go test ./controller -cover && go test ./model -cover"
+#    - stage: test
+#      script: docker-compose up -d && docker-compose exec app bash -c "go test ./controller -cover && go test ./model -cover"
